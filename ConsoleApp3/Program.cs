@@ -11,37 +11,42 @@ namespace ConsoleApp3
     {
         static void Main(string[] args)
         {
-            //int[] array = { 10, 4, 6, 8, 111, 555, 678, 9, 0 };
-            //bubblesort(array);
-            //printArray(array);
             Options();
             UserChoices();
 
         }
-        static void BubbleSort(string[] array, int size, int range)
+        static void BubbleSort(string[] Network, int size, int range)
         {
             for (int i = 0; i < size; i++)
             {
                 for (int j = 0; j < size - 1 - i; j++)
                 {
-                    if (Convert.ToInt32(array[j + 1]) < Convert.ToInt32(array[j]))
+                    if (Convert.ToInt32(Network[j + 1]) < Convert.ToInt32(Network[j]))
                     {
-                        var temp = array[j];
-                        array[j] = array[j + 1];
-                        array[j + 1] = temp;
+                        var temp = Network[j];
+                        Network[j] = Network[j + 1];
+                        Network[j + 1] = temp;
                     }
                 }
             }
-            printArray(array, size, range);
+            printArray(Network, size, range);
         }
-        static void printArray(string[] array, int size, int range)
+        static void BLANKSort(string[] Network, int size, int range)
+        {
+
+        }
+        static void BlankSearch(string[] Network, int size, int range)
+        {
+
+        }
+        static void printArray(string[] Network, int size, int range)
         {
             int i;
             for (i = range; i < size; i+= range)
-                Console.WriteLine("Line number "+i + " :"+array[i]);
+                Console.WriteLine("Line number "+i + " :"+Network[i]);
                 i = i+range;
-            //Console.WriteLine("Press");
-            //Console.ReadKey(true);
+            Console.WriteLine("Press any key to end: ");
+            Console.ReadKey(true);
         }
         static void Options()
         {
