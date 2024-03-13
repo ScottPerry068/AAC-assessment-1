@@ -9,11 +9,9 @@ namespace ConsoleApp3
 {
     internal class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
             Options();
-            UserChoices();
-
         }
         static void BubbleSort(string[] Network, int size, int range)
         {
@@ -29,22 +27,89 @@ namespace ConsoleApp3
                     }
                 }
             }
-            printArray(Network, size, range);
+            PrintNetwork(Network, size, range);
         }
-        static void BLANKSort(string[] Network, int size, int range)
+        static void InsertionSort(string[] Network, int size, int range)
         {
+            int number = 1; int element;
 
+            while (number < size)
+            {
+                var temp = Network[number];
+                for(element=number; element > 0; element--)
+                {
+                    if (Convert.ToInt32(temp) < Convert.ToInt32(Network[element - 1]))
+                    {
+                        Network[element] = Network[element - 1];
+                    }
+                    else
+                    {
+                        break;
+                    }
+                    
+                }
+                Network[element] = temp;
+                number++;
+            }
+            PrintNetwork(Network, number, range);
         }
-        static void BlankSearch(string[] Network, int size, int range)
+        static void LinearSearch(string[] Network, int size, int range)
         {
-
+            Console.WriteLine("What number would you like to find?");
+            var ReadUser = Console.ReadLine();
+            int user = Convert.ToInt32(ReadUser);
+            int user2 = Convert.ToInt32(ReadUser);
+            int e1 = 0;
+            int e2 = 0;
+            for(e1 = 0; e1< size; e1++)
+            {
+                if (user == Convert.ToInt32(Network[e1]))
+                {
+                    e1 = e1 + 1;
+                    Console.WriteLine("This is your number: " + user + " it was found on line number: " + e1);
+                }
+            }
+            for (e1 = 0; e1 < size; e1++,e2++)
+            {
+                if (user - 1 == Convert.ToInt32(Network[e1]))
+                {
+                    if (user2 + 1 == Convert.ToInt32(Network[e2]))
+                    {
+                        e1 = e1 + 1;
+                        e2 = e2 + 1;
+                        Console.WriteLine("The closest number to your number was " + user + "and was found on line: " + e1 + "\nthe same distance appart there was the number " + user2 + " on line: " +e2);
+                        break;
+            
+                    }
+                    e1 = e1 + 1;
+                    Console.WriteLine("The closest number to your number was " + user + " and was found on line " + e1);
+                    break;
+                }
+                else if (user2 + 1 == Convert.ToInt32(Network[e2]))
+                {
+                    if (user - 1 == Convert.ToInt32(Network[e1]))
+                    {
+                        e1 = e1 + 1;
+                        e2 = e2 + 1;
+                        Console.WriteLine("The closest number to your number was " + user + " and was found on line: " + e1 + "\nthe same distance appart there was the number " + user2 + "on line: " + e2);
+                        break;
+            
+                    }
+                    e2 = e2 + 1;
+                    Console.WriteLine("The closest number to your number was "  + user2 + " and was found on line " + e2);
+                    break;
+                }
+            
+            }
         }
-        static void printArray(string[] Network, int size, int range)
+        static void PrintNetwork(string[] Network, int size, int range)
         {
             int i;
-            for (i = range; i < size; i+= range)
-                Console.WriteLine("Line number "+i + " :"+Network[i]);
-                i = i+range;
+            for (i = range; i < size; i += range)
+            
+                Console.WriteLine("Line number " + i + " :" + Network[i]);
+                //i = i + range;
+            
             Console.WriteLine("Press any key to end: ");
             Console.ReadKey(true);
         }
@@ -193,38 +258,22 @@ namespace ConsoleApp3
             Console.WriteLine("----------------");
             var user = Console.ReadLine();
 
-
             if (user == "1")
             {
                 BubbleSort(Network, size, range);
             }
-
-
             else if (user == "2")
             {
-                //InsertionSort(Network);
+                InsertionSort(Network, size, range);
             }
-
-
-            else if (user == "3")
-            {
-                //SelectionSort(Network);
-            }
-
-
             else if (user == "4")
             {
-                //LinearSearch(Network);
-            }
-
-
-            else if (user == "5")
-            {
-                //BinarySearch(Network);
+                LinearSearch(Network, size, range);
             }
             else
             {
                 Console.WriteLine("not within parameter, again please");
+                //UserOptions(Network, size, range);
 
             }
         }
