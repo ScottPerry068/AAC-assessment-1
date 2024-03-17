@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
 
 namespace ConsoleApp3
 {
@@ -13,6 +15,56 @@ namespace ConsoleApp3
         static void Main() // main file that starts the program
         {
             Options(); //this calls a series of prints of different options for the user to pick
+        }
+        static void SelectionSort(string[] Network, int size, int range)
+        {
+            Console.WriteLine("Options"); // this prints a header
+            Console.WriteLine("1: Ascending");// this prints a choice to the user
+            Console.WriteLine("2: Descending");// this prints a choice to the user
+            var User = Console.ReadLine(); // This reads the users input
+            if (User == "1") // if users input = 1 then runs code
+            {
+                for (int x = 0; x < size - 1; x++) // this createas a loop within the range of the arrays length, and every loop adds one to the x value
+                {
+                    Counter = Counter + 1; // this adds one to the step counter
+                    int minimum = x; // this creates the minimun value
+                    for (int y = x + 1; y < size; y++) // this loop adds one to the min value and checks that y is below the array length
+
+                        if (Convert.ToInt32(Network[y]) < Convert.ToInt32(Network[minimum])) // finds min
+                            minimum = y; // assigns min to Y
+                    //swaps the min with first element
+                    var temp = Network[minimum];// this holds the min value
+                    Network[minimum] = Network[x];// this changes the min
+                    Network[x] = temp;// this changes the temp 
+
+
+
+
+                }
+                PrintNetwork(Network, size, range, Counter); // calls print network
+            }
+            if (User == "2") // if users input = 1 then runs code
+            {
+                for (int x = 0; x < size - 1; x++) // this createas a loop within the range of the arrays length, and every loop adds one to the x value
+                {
+                    Counter = Counter + 1; // this adds one to the step counter
+                    int minimum = x; // this creates the minimun value
+                    for (int y = x + 1; y < size; y++) // this loop adds one to the min value and checks that y is below the array length
+
+                        if (Convert.ToInt32(Network[y]) < Convert.ToInt32(Network[minimum])) // finds min
+                            minimum = y; // assigns min to Y
+                    //swaps the min with first element
+                    Counter = Counter + 1; // this adds one to the step counter
+                    var temp = Network[minimum]; // this holds the min value
+                    Network[minimum] = Network[x]; // this changes the min
+                    Network[x] = temp; // this changes the temp 
+
+
+
+
+                }
+                PrintNetwork(Network, size, range, Counter); // calls print network
+            }
         }
         static void BubbleSort(string[] Network, int size, int range) // this implements a bubble sort
         {
@@ -124,9 +176,8 @@ namespace ConsoleApp3
             Console.WriteLine("What number would you like to find?");
             var ReadUser = Console.ReadLine(); // this reads the users input
             int user = Convert.ToInt32(ReadUser); // this coverts the user to an integer
-            int user2 = Convert.ToInt32(ReadUser); // this coverts the user to an integer
-            int e2 = 0; // this creates an value for postion 
-            for (int e1 = 0; e1 < size; ++e1, ++e2) // this creates a loop that makes sure that e1 is smaller than the length of the array and adds 1 to 2 postion values
+            bool Found = false;
+            for (int e1 = 0; e1 < size; ++e1) // this creates a loop that makes sure that e1 is smaller than the length of the array and adds 1 to 2 postion values
             {
                 Counter = Counter + 1; // this adds one to the step counter
                 if (user == Convert.ToInt32(Network[e1])) // this checks the users input for a direct match within the network
@@ -134,43 +185,68 @@ namespace ConsoleApp3
                     e1 = e1 + 1; // this adds one to the line counter 
                     Console.WriteLine("This is your number: " + user + " it was found on line number: " + e1); // this prints in the console the number they chose and the postion of the number within the network
                     Console.WriteLine("This search took " + Counter + " Steps"); // this shows how many steps it took to find the number
-                    break; // this breaks the loop
+                    Found = true;
+                    continue; // this continues the loop to check for other possablities
                 }
-                else if (user - 1 == Convert.ToInt32(Network[e1])) // this checks the loop for 1 below the users input 
+                if (e1 > size - 2)
                 {
-                    if (user2 + 1 == Convert.ToInt32(Network[e2]))
+                    if (Found == false)
                     {
-                        Counter = Counter + 1; // this adds one to the step counter
-                        e1 = e1 + 1; // this adds 1 to the postion values
-                        e2 = e2 + 1; // this adds 1 to the postion values
-                        Console.WriteLine("The closest number to your number was " + Network[e1 - 1] + "and was found on line: " + e1 + "\nthe same distance appart there was the number " + Network[e2 - 1] + " on line: " + e2); // this prints both values found if there is one above and one below the users data
-                        Console.WriteLine("This search took " + Counter + " Steps"); // this shows how many steps the search took
-                        break; // this breaks the loop
-
+                        Console.WriteLine("Your number is not in the data set ");
+                        break;
                     }
-                    e1 = e1 + 1;
-                    Counter = Counter + 1; // this adds one to the step counter
-                    Console.WriteLine("The closest number to your number was " + Network[e1 - 1] + " and was found on line " + e1); // this prints the closest number to the users number
-                    Console.WriteLine("This search took " + Counter + " Steps"); // this shows how many steps the search took
-                    break; // this breaks the loop
+                    break;
+
                 }
-                else if (user2 + 1 == Convert.ToInt32(Network[e2])) // this checks the loop for 1 above the users input 
+            }
+            }
+        static void BinarySearch(string[] Network, int size)
+        {
+            for (int x = 0; x < size; x++) // this createas a loop within the range of the arrays length, and every loop adds one to the x value
+            {
+                for (int y = 0; y < size - 1 - x; y++) // this createas a loop within the range of the arrays length, and every loop adds one to the y value
+                {
+                    if (Convert.ToInt32(Network[y + 1]) < Convert.ToInt32(Network[y])) // this says that if 1 postion is greater than the other
+                    {
+                        var temp = Network[y]; // this isolates one value 
+                        Network[y] = Network[y + 1]; // this swaps the value
+                        Network[y + 1] = temp; // this isolates the other value 
+                    }
+                }
+            }
+            Console.WriteLine("What number would you like to find?");
+            var ReadUser = Console.ReadLine(); // this reads the users input
+            int user = Convert.ToInt32(ReadUser); // this coverts the user to an integer
+            bool Found = false; // this is a bool value i use to tell if the data inst in the dataset 
+            int number = 0; //this is just an empty value for the while loop
+            int length = size - 1; // this is to make the range
+            while (number <= length - 1) // this while loop loops till the end of the dataset
+            {
+                int midpoint = number + (length - 1) / 2; // this finds the midpoint of the data 
+
+                if (Convert.ToInt32(Network[midpoint]) == user) // this checks if the midpoint of the data is the number the user searched for
+                {
+                    Counter = Counter + 1; // this is a step counter
+                    midpoint = midpoint + 1; // this adds one to the midpoint to give me the line number of the sorted network 
+                    Console.WriteLine("Your number: "+user+ " Was found in the sorted list at line: "+midpoint);
+                    Found = true; // this is so the console doesnt say the number isnt in the list 
+                }
+
+                if (Convert.ToInt32(Network[midpoint]) < user) // this ignores the left hand side if the users number is larger than then the network
+                {
+                    Counter = Counter + 1; // this is a step counter
+                    midpoint = midpoint + 1; // this increases the midpoint
+                    break; // this breaks the loop so it starts a new
+                }
+                else // this ignores the right hand side
                 {
                     Counter = Counter + 1; // this adds one to the step counter
-                    if (user - 1 == Convert.ToInt32(Network[e1]))
-                    {
-                        e1 = e1 + 1; // this adds 1 to the postion values
-                        e2 = e2 + 1; // this adds 1 to the postion values
-                        Console.WriteLine("The closest number to your number was " + Network[e1 - 1] + " and was found on line: " + e1 + "\nAnd the same distance appart there was the number " + Network[e2 - 1] + "on line: " + e2); // this prints both values found if there is one above and one below the users data
-                        Console.WriteLine("This search took " + Counter + " Steps"); // this shows how many steps the search took
-                        break; // this breaks the loop
-
-                    }
-                    e2 = e2 + 1;
-                    Console.WriteLine("The closest number to your number was " + Network[e2 - 1] + " and was found on line " + e2); // this prints the closest number to the users number
-                    Console.WriteLine("This search took " + Counter + " Steps"); // this shows how many steps the search took
-                    break; // this breaks the loop
+                    length = midpoint - 1; // this changes the length so the right handside is ignored
                 }
+            }
+            if (Found == false) // this tells the user that there number wasnt found
+            {
+                Console.WriteLine("Your number wasn't found");
             }
         }
                 
@@ -328,9 +404,11 @@ namespace ConsoleApp3
             Console.WriteLine("Sort");
             Console.WriteLine("1:Bubble sort");
             Console.WriteLine("2:Insertion sort");
+            Console.WriteLine("3:Selection sort");
             Console.WriteLine("----------------");
             Console.WriteLine("Search");
-            Console.WriteLine("3:Linear");
+            Console.WriteLine("4:Linear");
+            Console.WriteLine("5:Binary");
             Console.WriteLine("----------------");
             var user = Console.ReadLine(); // this reads the users input
 
@@ -344,7 +422,15 @@ namespace ConsoleApp3
             }
             else if (user == "3") // this checks if the users input martches a choice
             {
+                SelectionSort(Network, size, range); // this pushes the network, size and range through into an algorithm
+            }
+            else if (user == "4") // this checks if the users input martches a choice
+            {
                 LinearSearch(Network, size); // this pushes the network and size through into an algorithm
+            }
+            else if (user == "5")
+            {
+                BinarySearch(Network, size); // this pushes the network and size through into an algorithm
             }
             else // if the user types something that isnt 1,2, or 3 
             {
