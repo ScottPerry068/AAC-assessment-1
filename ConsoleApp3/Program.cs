@@ -90,7 +90,7 @@ namespace ConsoleApp3
                 }
                 PrintNetwork(Network, size, range, Counter); // this calls the print network
             }
-            if(User == 2) // this chooses the descending data when the user types 2
+            if (User == 2) // this chooses the descending data when the user types 2
             {
                 for (int x = 0; x < size; x++) // this createas a loop within the range of the arrays length, and every loop adds one to the x value
                 {
@@ -107,7 +107,7 @@ namespace ConsoleApp3
                 }
                 PrintNetwork(Network, size, range, Counter); // this calls the print network
             }
-            if(User > 2) // this makes any other input redo the selection process
+            if (User > 2) // this makes any other input redo the selection process
             {
                 BubbleSort(Network, size, range); // this calls bubble sort to redo the selection process
             }
@@ -166,7 +166,7 @@ namespace ConsoleApp3
                 }
                 PrintNetwork(Network, number, range, Counter); // this calls the print network
             }
-            if(User > 2) // this means if the user puts a number over 2 it will re do the selection 
+            if (User > 2) // this means if the user puts a number over 2 it will re do the selection 
             {
                 InsertionSort(Network, size, range); // this redo the selection process for the insertion sort 
             }
@@ -199,7 +199,7 @@ namespace ConsoleApp3
 
                 }
             }
-            }
+        }
         static void BinarySearch(string[] Network, int size)
         {
             for (int x = 0; x < size; x++) // this createas a loop within the range of the arrays length, and every loop adds one to the x value
@@ -219,29 +219,34 @@ namespace ConsoleApp3
             int user = Convert.ToInt32(ReadUser); // this coverts the user to an integer
             bool Found = false; // this is a bool value i use to tell if the data inst in the dataset 
             int number = 0; //this is just an empty value for the while loop
-            int length = size - 1; // this is to make the range
-            while (number <= length - 1) // this while loop loops till the end of the dataset
+            int length = size - 2;// - 1; // this is to make the range
+            while (number <= length) // this while loop loops till the end of the dataset
             {
-                int midpoint = number + (length - 1) / 2; // this finds the midpoint of the data 
-
+                int midpoint = number + (length - 2) / 2; // this finds the midpoint of the data 
+                //Console.WriteLine(midpoint);
+                Console.Write("number " + Network[midpoint] + " midpoint " + midpoint + "\n");
+                Console.Write("number " + number + " length " + length + "\n");
                 if (Convert.ToInt32(Network[midpoint]) == user) // this checks if the midpoint of the data is the number the user searched for
                 {
+                    Console.WriteLine(Network[midpoint]);
                     Counter = Counter + 1; // this is a step counter
                     midpoint = midpoint + 1; // this adds one to the midpoint to give me the line number of the sorted network 
-                    Console.WriteLine("Your number: "+user+ " Was found in the sorted list at line: "+midpoint);
+                    Console.WriteLine("Your number: " + user + " Was found in the sorted list at line: " + midpoint);
                     Found = true; // this is so the console doesnt say the number isnt in the list 
+                    break;
                 }
 
                 if (Convert.ToInt32(Network[midpoint]) < user) // this ignores the left hand side if the users number is larger than then the network
                 {
                     Counter = Counter + 1; // this is a step counter
-                    midpoint = midpoint + 1; // this increases the midpoint
-                    break; // this breaks the loop so it starts a new
+                    number = midpoint + 2; // this increases the midpoint
+                    //break; // this breaks the loop so it starts a new
                 }
-                else // this ignores the right hand side
+                if (Convert.ToInt32(Network[midpoint]) > user) // this ignores the right hand side
                 {
+                    Console.WriteLine("pookie broken");
                     Counter = Counter + 1; // this adds one to the step counter
-                    length = midpoint - 1; // this changes the length so the right handside is ignored
+                    length = midpoint - 20; // this changes the length so the right handside is ignored
                 }
             }
             if (Found == false) // this tells the user that there number wasnt found
@@ -249,14 +254,14 @@ namespace ConsoleApp3
                 Console.WriteLine("Your number wasn't found");
             }
         }
-                
+
         static void PrintNetwork(string[] Network, int size, int range, int count) // this prints the network when the sort is completed
         {
             int i; // this creates a int value
             for (i = range; i < size; i += range) // this creates a loop that when i is equal to 10 or 50 and i is smaller than the length of the array it shall loop
-            
+
                 Console.WriteLine("Line number " + i + " :" + Network[i]); // this prints every 10 or 50th number depending on the network size
-                Console.WriteLine("This took: " + count+ " Steps"); // this shows how many steps were taken        
+            Console.WriteLine("This took: " + count + " Steps"); // this shows how many steps were taken        
             Console.WriteLine("Press any key to end: "); // this tells you how to quit
             Console.ReadKey(true); // this just reads the key the user pressed
         }
