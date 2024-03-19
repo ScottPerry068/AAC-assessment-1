@@ -185,6 +185,7 @@ namespace ConsoleApp3
                             }
 
                         }
+                        Counter = Counter + 1; // this adds one to the step counter
                         Network[element] = temp; // this swaps the temp value 
                         number++; // this adds one to the value number
                     }
