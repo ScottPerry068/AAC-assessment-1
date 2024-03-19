@@ -22,7 +22,6 @@ namespace ConsoleApp3
             }
             catch
             {
-                Console.WriteLine("Invalid input please try again");
                 Options();
 
             }
@@ -250,21 +249,18 @@ namespace ConsoleApp3
                         e1 = e1 + 1; // this adds one to the line counter 
                         Console.WriteLine("This is your number: " + user + " it was found on line number: " + e1); // this prints in the console the number they chose and the postion of the number within the network
                         Console.WriteLine("This search took " + Counter + " Steps"); // this shows how many steps it took to find the number
-                        Found = true;
+                        Found = true; // this tells the system a match was found 
                         continue; // this continues the loop to check for other possablities
                     }
-                    if (e1 > size - 2)
+                    if (e1 > size - 2) // this tells the search it has reached the end
                     {
-                        if (Found == false)
+                        if (Found == false) // this is for if a match wasnt found
                         {
                             Console.WriteLine("Your number is not in the data set ");
-                            break;
+                            Environment.Exit(0); //this exits the code
                         }
-                        break;
-
+                        Environment.Exit(0); //this exits the code
                     }
-
-
                 }
             }
             catch
@@ -323,13 +319,13 @@ namespace ConsoleApp3
                             Console.WriteLine("This search took " + Counter + " Steps");
                             Console.WriteLine("Your number: " + user + " Was found in the sorted list at line: " + Line);
                         }
+                        Environment.Exit(0); //this exits the code
                         break;
                     }
                     if (Convert.ToInt32(Network[midpoint]) < user) // this ignores the left hand side if the users number is larger than then the network
                     {
                         Counter = Counter + 1; // this is a step counter
                         number = midpoint + 1; // this increases the midpoint
-                                               //break; // this breaks the loop so it starts a new
                     }
                     if (Convert.ToInt32(Network[midpoint]) > user) // this ignores the right hand side
                     {
@@ -340,9 +336,10 @@ namespace ConsoleApp3
                 if (Found == false) // this tells the user that there number wasnt found
                 {
                     Console.WriteLine("Your number wasn't found");
+                    Environment.Exit(0); //this exits the code
                 }
             }
-            catch
+            catch // this catches an erronious input and makes the user input again
             {
                 Console.WriteLine("That is the incorrect input please try again");
                 BinarySearch(Network, size);
@@ -355,8 +352,7 @@ namespace ConsoleApp3
 
                 Console.WriteLine("Line number " + i + " :" + Network[i]); // this prints every 10 or 50th number depending on the network size
             Console.WriteLine("This took: " + count + " Steps"); // this shows how many steps were taken        
-            Console.WriteLine("Press any key to end: "); // this tells you how to quit
-            Console.ReadKey(true); // this just reads the key the user pressed
+            Environment.Exit(0);
         }
         static void Options() // this is just a series of prinatable lines of code so the user know the options they can choose 
         {
@@ -378,9 +374,8 @@ namespace ConsoleApp3
                 UserChoices(); // this calls the selection process
                 throw new Exception();
             }
-            catch (Exception)
+            catch (Exception) // this catches an erronious input and makes the user input again
             {
-                Console.WriteLine("Invalid input please try again");
                 Options();
             }
         }
@@ -501,18 +496,18 @@ namespace ConsoleApp3
             {
                 UserOptions(Network, size, range); // it repeats the selection
             }
-            try
-            {
-                if (user > 5 || user == 0)
-                {
-                    throw new ArgumentOutOfRangeException(nameof(User));
-                }
-            }
-            catch (ArgumentOutOfRangeException)
-            {
-                Console.WriteLine("Your number was out of range!");
-                UserOptions(Network, size, range);
-            }
+           //try // this catches an erronious input and makes the user input again
+           //{
+           //    if (user > 5 || user == 0)
+           //    {
+           //        throw new ArgumentOutOfRangeException(nameof(User));
+           //    }
+           //}
+           //catch (ArgumentOutOfRangeException) // this catches an erronious input and makes the user input again
+           //{
+           //    Console.WriteLine("Your number was out of range!");
+           //    UserOptions(Network, size, range);
+           //}
         }
     }
 }
