@@ -214,24 +214,17 @@ namespace ConsoleApp3
                     }
                     PrintNetwork(Network, number, range, Counter); // this calls the print network
                 }
+                if (User > 2 || User == 0)
+                {
+                    throw new Exception();
+                }
             }
-            catch // this means if the user puts a number over 2 it will re do the selection 
+            catch (Exception) // this means if the user puts a number over 2 it will re do the selection 
             {
                 Console.WriteLine("invalid input, please try agin!");
                 InsertionSort(Network, size, range); // this redo the selection process for the insertion sort 
             }
-            try
-            {
-                if (User > 3 || User == 0)
-                {
-                    throw new ArgumentOutOfRangeException(nameof(User));
-                }
-            }
-            catch (ArgumentOutOfRangeException)
-            {
-                Console.WriteLine("Your number was out of range!");
-                InsertionSort(Network, size, range);
-            }
+            
         }
         static void LinearSearch(string[] Network, int size) // this implements a linear search
         {
